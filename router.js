@@ -1,10 +1,29 @@
+const customers = require('./controllers/customer');
+const vehicle = require('./controllers/vehicle');
+
+const routes = {
+    '/customers': {
+        'GET': customers.list,
+        'POST': customers.add,
+        'PATCH': customers.update,
+        'DELETE': customers.remove
+    },
+    '/vehicles': {
+        'GET':  vehicle.list,
+        'POST': vehicle.add,
+        'PATCH': vehicle.update,
+        'DELETE': vehicle.remove
+    }
+}
+
 module.exports = (url, method) => {
-    
-    if(url.indexOf('/customers' >= 0)){
-        return 'Controller do cliente'
+
+    if(!routes[url]){
+        throw '404';
+    }
+    if(!routes[url][method]){
+        throw '405';
     }
 
-    if(url.indexOf('/vehicles')){
-        return 'Controller do veiculo';
-    }
+    return routes[url][method]();
 }
