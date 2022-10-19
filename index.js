@@ -1,4 +1,3 @@
-const vehicle = require('./controllers/vehicle');
-const customer = require('./controllers/vehicle');
+const server = require('./server')
 
-console.log(vehicle.add());
+server();
